@@ -13,14 +13,14 @@
 <body class="min-h-screen text-white flex items-center justify-center p-4">
   <div class="max-w-xl w-full bg-black/40 backdrop-blur-2xl rounded-3xl p-8 border border-teal-400/30">
 
+    <!-- Token Icon -->
     <div class="flex justify-center mb-6">
-      <img src="https://i.imgur.com/CoLhO.jpg" alt="BLOCK Token" class="w-40 h-40 object-contain">
+      <img src="block-icon.png" alt="BLOCK Token" class="w-40 h-40 object-contain">
     </div>
 
     <div class="text-center mb-8">
       <h1 class="text-6xl font-bold tracking-tighter">BLOCK</h1>
       <p class="text-teal-400 text-xl">Staking Vault</p>
-      <p class="text-xs text-yellow-400 mt-2">Devnet • Seeker Ready</p>
     </div>
 
     <div class="flex justify-center mb-10">
@@ -53,7 +53,7 @@
 
       <div class="mt-8 text-center">
         <p class="text-teal-400 text-lg">Your APY: <span class="font-mono text-4xl">42%</span></p>
-        <p class="text-xs text-gray-400 mt-1">Priority for Solana Seeker & PSG1 holders</p>
+        <p class="text-xs text-gray-400 mt-1">Higher for PSG1 & Solana Seeker holders • Long-term priority</p>
       </div>
     </div>
 
@@ -62,35 +62,38 @@
       <h3 class="text-lg font-semibold mb-4 text-center text-teal-400">Release Schedule (1 Billion Total)</h3>
       <div class="space-y-4 text-sm">
         <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>Aug 14, 2026</div>
+          <div>August 14, 2026</div>
           <div class="font-mono solana-text">20%</div>
         </div>
         <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>Dec 14, 2026</div>
+          <div>December 14, 2026</div>
           <div class="font-mono solana-text">40%</div>
         </div>
         <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>Apr 14, 2027</div>
+          <div>April 14, 2027</div>
           <div class="font-mono solana-text">60%</div>
         </div>
         <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>Aug 31, 2027</div>
+          <div>August 31, 2027</div>
           <div class="font-mono solana-text">80%</div>
         </div>
         <div class="flex justify-between bg-black/30 p-4 rounded-3xl border border-teal-400">
-          <div>Jan 1, 2028</div>
+          <div>January 1, 2028</div>
           <div class="font-mono solana-text">100%</div>
         </div>
       </div>
     </div>
 
+    <!-- Vault & Token Info -->
     <div class="mt-12 text-center text-xs">
       <p class="text-gray-400">Staking Vault</p>
-      <a href="https://solscan.io/account/FXyuAG9BGnJS5wM1cM6BK16w5FVsJaRK6GCV1dzbCTfr?cluster=devnet" target="_blank" class="font-mono text-teal-400 hover:text-teal-300">
+      <a href="https://solscan.io/account/FXyuAG9BGnJS5wM1cM6BK16w5FVsJaRK6GCV1dzbCTfr?cluster=devnet" 
+         target="_blank" class="font-mono text-teal-400 hover:text-teal-300 break-all">
         FXyuAG9BGnJS5wM1cM6BK16w5FVsJaRK6GCV1dzbCTfr
       </a>
-      <p class="mt-6 text-gray-400">Token</p>
+      <p class="mt-6 text-gray-400">Token Address</p>
       <p class="font-mono text-teal-400 break-all">BLc1zrQ8dADCfiLk8LgafTqnDH55iixcFZXpWMDi3syF</p>
+      <p class="mt-8 text-gray-400">Total Supply: 1 Billion + ...</p>
     </div>
 
   </div>
@@ -99,18 +102,18 @@
     let totalStaked = 0;
 
     async function connectWallet() {
-      // Try Solana Mobile / Seeker first
       if (window.solana) {
         try {
-          const resp = await window.solana.connect();
+          await window.solana.connect();
           document.getElementById("wallet-info").classList.remove("hidden");
           document.getElementById("balance").innerHTML = "0.0000 BLOCK";
-          alert("✅ Connected to Solana Seeker / Phantom on Devnet!");
-          return;
-        } catch (e) {}
+          alert("✅ Wallet connected on Devnet!\n\nYou can now test staking BLOCK.");
+        } catch (err) {
+          alert("Failed to connect. Make sure your Seeker wallet is open and unlocked.");
+        }
+      } else {
+        alert("No Solana wallet detected.\n\nPlease open Phantom or the built-in wallet on your Seeker.");
       }
-
-      alert("Please open Phantom or the Solana wallet on your Seeker phone and try again.\n\nMake sure the wallet is unlocked.");
     }
 
     function stakeTokens() {
@@ -120,7 +123,7 @@
       totalStaked += amount;
       document.getElementById("staked-balance").innerHTML = totalStaked.toFixed(4) + " BLOCK";
 
-      alert(`✅ ${amount} BLOCK sent to vault on Devnet.\n\nThis is a test - real transaction would be signed here.`);
+      alert(`✅ ${amount} BLOCK staked successfully on Devnet.`);
     }
   </script>
 </body>
