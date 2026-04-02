@@ -15,7 +15,7 @@
 
     <!-- Token Icon -->
     <div class="flex justify-center mb-6">
-      <img src="block-icon.png" alt="BLOCK Token" class="w-40 h-40 object-contain">
+      <img src="https://i.imgur.com/CoLhO.jpg" alt="BLOCK Token" class="w-40 h-40 object-contain">
     </div>
 
     <div class="text-center mb-8">
@@ -107,12 +107,12 @@
           await window.solana.connect();
           document.getElementById("wallet-info").classList.remove("hidden");
           document.getElementById("balance").innerHTML = "0.0000 BLOCK";
-          alert("✅ Wallet connected on Devnet!\n\nYou can now test staking BLOCK.");
+          alert("✅ Wallet connected on Devnet!\nYou can now stake BLOCK tokens.");
         } catch (err) {
           alert("Failed to connect. Make sure your Seeker wallet is open and unlocked.");
         }
       } else {
-        alert("No Solana wallet detected.\n\nPlease open Phantom or the built-in wallet on your Seeker.");
+        alert("No Solana wallet detected.\n\nPlease open Phantom or the Solana wallet on your Seeker phone.");
       }
     }
 
@@ -123,7 +123,7 @@
       totalStaked += amount;
       document.getElementById("staked-balance").innerHTML = totalStaked.toFixed(4) + " BLOCK";
 
-      alert(`✅ ${amount} BLOCK staked successfully on Devnet.`);
+      alert(`✅ ${amount} BLOCK staked successfully.`);
     }
   </script>
 </body>
