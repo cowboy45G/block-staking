@@ -3,41 +3,30 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BLOCK Staking</title>
+  <title>BLOCK Staking - Devnet Vault</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body { background: linear-gradient(to bottom right, #4b0082, #000000, #00b3b3); }
-    .solana-text { color: #14f195; }
   </style>
 </head>
 <body class="min-h-screen text-white flex items-center justify-center p-4">
   <div class="max-w-xl w-full bg-black/40 backdrop-blur-2xl rounded-3xl p-8 border border-teal-400/30">
 
-    <!-- Token Icon -->
-    <div class="flex justify-center mb-6">
-      <img src="block-icon.jpg" alt="BLOCK Token" class="w-40 h-40 object-contain">
-    </div>
-
-    <div class="text-center mb-8">
+    <div class="text-center mb-10">
       <h1 class="text-6xl font-bold tracking-tighter">BLOCK</h1>
-      <p class="text-teal-400 text-xl">Staking Vault</p>
+      <p class="text-teal-400 text-xl">Secure Staking Vault • Devnet</p>
     </div>
 
     <div class="flex justify-center mb-10">
       <button onclick="connectWallet()" 
               class="bg-[#14f195] hover:bg-[#00ffaa] text-black font-bold py-5 px-12 rounded-3xl text-lg w-full">
-        Connect Solana Wallet
+        Connect Wallet
       </button>
     </div>
 
     <div id="wallet-info" class="hidden text-center mt-8">
       <p class="text-sm text-gray-400">Your BLOCK Balance</p>
       <p id="balance" class="text-7xl font-mono font-bold text-white mt-3">0.0000 BLOCK</p>
-
-      <div class="mt-8 pt-6 border-t border-teal-400/30">
-        <p class="text-sm text-gray-400">Your Staked BLOCK</p>
-        <p id="staked-balance" class="text-5xl font-mono font-bold text-white mt-2">0.0000 BLOCK</p>
-      </div>
 
       <div class="mt-10">
         <label class="block text-sm text-gray-400 mb-2">Amount to Stake</label>
@@ -46,84 +35,54 @@
                  class="flex-1 bg-black/50 border border-teal-500/30 rounded-3xl px-6 py-5 text-2xl focus:outline-none">
           <button onclick="stakeTokens()" 
                   class="bg-[#14f195] text-black font-bold px-10 rounded-3xl text-xl hover:bg-[#00ffaa]">
-            STAKE
+            STAKE TO VAULT
           </button>
         </div>
       </div>
 
       <div class="mt-8 text-center">
         <p class="text-teal-400 text-lg">Your APY: <span class="font-mono text-4xl">42%</span></p>
-        <p class="text-xs text-gray-400 mt-1">Higher for PSG1 & Solana Seeker holders • Long-term priority</p>
+        <p class="text-xs text-gray-400 mt-1">Higher for PSG1 & Solana Seeker holders</p>
       </div>
     </div>
 
-    <!-- Release Schedule -->
-    <div class="mt-12">
-      <h3 class="text-lg font-semibold mb-4 text-center text-teal-400">Release Schedule (1 Billion Total)</h3>
-      <div class="space-y-4 text-sm">
-        <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>August 14, 2026</div>
-          <div class="font-mono solana-text">20%</div>
-        </div>
-        <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>December 14, 2026</div>
-          <div class="font-mono solana-text">40%</div>
-        </div>
-        <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>April 14, 2027</div>
-          <div class="font-mono solana-text">60%</div>
-        </div>
-        <div class="flex justify-between bg-black/30 p-4 rounded-3xl">
-          <div>August 31, 2027</div>
-          <div class="font-mono solana-text">80%</div>
-        </div>
-        <div class="flex justify-between bg-black/30 p-4 rounded-3xl border border-teal-400">
-          <div>January 1, 2028</div>
-          <div class="font-mono solana-text">100%</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Vault & Token Info -->
     <div class="mt-12 text-center text-xs">
-      <p class="text-gray-400">Staking Vault</p>
+      <p class="text-gray-400">Secure Staking Vault</p>
       <a href="https://solscan.io/account/FXyuAG9BGnJS5wM1cM6BK16w5FVsJaRK6GCV1dzbCTfr?cluster=devnet" 
          target="_blank" class="font-mono text-teal-400 hover:text-teal-300 break-all">
         FXyuAG9BGnJS5wM1cM6BK16w5FVsJaRK6GCV1dzbCTfr
       </a>
       <p class="mt-6 text-gray-400">Token Address</p>
       <p class="font-mono text-teal-400 break-all">BLc1zrQ8dADCfiLk8LgafTqnDH55iixcFZXpWMDi3syF</p>
-      <p class="mt-8 text-gray-400">Total Supply: 1 Billion + ...</p>
     </div>
 
   </div>
 
   <script>
-    let totalStaked = 0;
-
     async function connectWallet() {
-      if (window.solana) {
-        try {
-          await window.solana.connect();
-          document.getElementById("wallet-info").classList.remove("hidden");
-          document.getElementById("balance").innerHTML = "0.0000 BLOCK";
-          alert("✅ Wallet connected on Devnet!\nYou can now stake BLOCK tokens.");
-        } catch (err) {
-          alert("Failed to connect. Make sure your Seeker wallet is open and unlocked.");
-        }
-      } else {
-        alert("No Solana wallet detected.\n\nPlease open Phantom or the Solana wallet on your Seeker phone.");
+      if (!window.solana) {
+        alert("No Solana wallet detected.\n\nPlease open Phantom or Solana Mobile on your Seeker.");
+        return;
+      }
+
+      try {
+        await window.solana.connect();
+        document.getElementById("wallet-info").classList.remove("hidden");
+        document.getElementById("balance").innerHTML = "0.0000 BLOCK";
+        alert("✅ Wallet connected on Devnet. You can now stake to the vault.");
+      } catch (err) {
+        alert("Connection failed. Make sure your wallet is unlocked.");
       }
     }
 
-    function stakeTokens() {
+    async function stakeTokens() {
       const amount = parseFloat(document.getElementById("stake-amount").value);
       if (!amount || amount <= 0) return alert("Enter a valid amount");
 
-      totalStaked += amount;
-      document.getElementById("staked-balance").innerHTML = totalStaked.toFixed(4) + " BLOCK";
-
-      alert(`✅ ${amount} BLOCK staked successfully.`);
+      alert(`Attempting to stake ${amount} BLOCK to vault...\n\n(This is Devnet test - real transaction simulation coming next)`);
+      
+      // In the next step we'll make this a real transfer
+      document.getElementById("staked-balance").innerHTML = (parseFloat(document.getElementById("staked-balance").innerHTML) + amount).toFixed(4) + " BLOCK";
     }
   </script>
 </body>
